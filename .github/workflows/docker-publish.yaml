@@ -11,7 +11,7 @@ env:
   GKE_ZONE: us-central1-a  # cluster zone
   IMAGE_NAME: bridge-lightyear-auth
   DEPLOYMENT_NAME: bridge-lightyear-auth # deployment name
-  NAMESPACE: rabbit
+  NAMESPACE: rabbitmq-ns
 
 jobs:
   generate-version:
@@ -73,7 +73,7 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl set image deployment/${{ env.DEPLOYMENT_NAME }} ${{ env.DEPLOYMENT_NAME }}=julianv08/${{ env.IMAGE_NAME }}:${{ needs.generate-version.outputs.new_tag }}
+        kubectl set image deployment/${{ env.DEPLOYMENT_NAME }} ${{ env.DEPLOYMENT_NAME }}=julianv08/${{ env.IMAGE_NAME }}:${{ needs.generate-version.outputs.new_tag }} -n ${{ env.NAMESPACE }}
         kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }}
     - name: Check deployment success
       run: |
