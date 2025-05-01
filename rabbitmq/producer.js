@@ -2,8 +2,6 @@
 import amqp from 'amqplib'
 import { getLogger } from '../logger/logger.js'
 
-process.loadEnvFile()
-
 const rmqUser = process.env.RMQ_USER || 'guest'
 const rmqPass = process.env.RMQ_PASS || 'guest'
 const rmqPort = process.env.RMQ_PORT || 5672
