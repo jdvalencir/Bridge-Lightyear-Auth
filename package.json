@@ -1,0 +1,24 @@
+{
+  "name": "bridge-lightyear-auth",
+  "version": "1.0.0",
+  "description": "Bridge Lightyear Auth is a app used to initially validate the registration body and pass the message to a RabbitMQ queue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "keywords": [
+    "Auth",
+    "Rabbit",
+    "Queue",
+    "registration"
+  ],
+  "author": "Marcianos Team",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.7",
+    "express": "^5.1.0",
+    "winston": "^3.17.0"
+  }
+}

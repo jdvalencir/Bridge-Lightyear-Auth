@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bridge-lightyear-auth
+  labels:
+    app: bridge-lightyear-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bridge-lightyear-auth
+  template:
+    metadata:
+      labels:
+        app: bridge-lightyear-auth
+    spec:
+      containers:
+      - name: bridge-lightyear-auth
+        image: julianv08/bridge-lightyear-auth:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+        env:
+        - name: RMQ_USER
+          value: "marciano"
+        - name: RMQ_PASS
+          valueFrom:
+            secretKeyRef:
+              name: my-rabbitmq
+              key: rabbitmq-password
+        - name: RMQ_HOST
+          value: "my-rabbitmq"
+        - name: RMQ_PORT
+          value: "5672"
+        resources:
+          limits:
+            cpu: "50m"
+            memory: "100Mi"
+          requests:
+            cpu: "50m"
+            memory: "100Mi"
+        livenessProbe:
+          httpGet:
+            path: /v1/users/home
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /v1/users/home
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
