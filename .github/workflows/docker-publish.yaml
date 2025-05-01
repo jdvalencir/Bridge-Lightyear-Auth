@@ -74,8 +74,8 @@ jobs:
     - name: Deploy
       run: |-
         kubectl set image deployment/${{ env.DEPLOYMENT_NAME }} ${{ env.DEPLOYMENT_NAME }}=julianv08/${{ env.IMAGE_NAME }}:${{ needs.generate-version.outputs.new_tag }} -n ${{ env.NAMESPACE }}
-        kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }}
+        kubectl rollout status deployment/${{ env.DEPLOYMENT_NAME }} -n ${{ env.NAMESPACE }}
     - name: Check deployment success
       run: |
-        while [[ $(kubectl get deployment/${{ env.DEPLOYMENT_NAME }} -o 'jsonpath={..status.conditions[?(@.type=="Available")].status}') != "True" ]]; do sleep 5; done
-        while [[ $(kubectl get pods -l app=${{ env.DEPLOYMENT_NAME }} -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do sleep 5; done
+        while [[ $(kubectl get deployment/${{ env.DEPLOYMENT_NAME }} -n ${{ env.NAMESPACE }} -o 'jsonpath={..status.conditions[?(@.type=="Available")].status}') != "True" ]]; do sleep 5; done
+        while [[ $(kubectl get pods -l app=${{ env.DEPLOYMENT_NAME }} -n ${{ env.NAMESPACE }} -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do sleep 5; done
