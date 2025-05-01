@@ -68,7 +68,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: julianv08/${{ env.IMAGE_NAME }}:latest, julianv08/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        tags: julianv08/${{ env.IMAGE_NAME }}:latest, julianv08/${{ env.IMAGE_NAME }}:${{ needs.generate-version.outputs.new_tag }}
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
