@@ -39,7 +39,7 @@ app.post('/v1/users/register', async (req, res) => {
     logger.info(`User with ID ${user.id} is not registered. Proceeding with registration.`);
     await rabbitMQProducer.sendToQueue('registration-queue', {
       documentType: user.documentType,
-      id: user.documentNumber,
+      id: user.id,
       firstName: user.firstName,
       secondName: user.secondName,
       lastName: user.lastName,
