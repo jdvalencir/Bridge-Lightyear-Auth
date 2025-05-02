@@ -22,7 +22,7 @@ app.post('/v1/users/register', async (req, res) => {
   }
 
   try {
-    const url = `http://mrpotato-adapter-service.mrpotato-adapter.svc.local:80/v1/adapter/validateCitizen/${user.id}`
+    const url = `http://mrpotato-adapter-service.mrpotato-adapter.svc.cluster.local:80/v1/adapter/validateCitizen/${user.id}`
     logger.info(`Validating user with ID: ${user.id} at ${url}`)
   
     const validationResponse = await axios.get(url)
