@@ -29,7 +29,7 @@ spec:
               name: my-rabbitmq
               key: rabbitmq-password
         - name: RMQ_HOST
-          value: "my-rabbitmq"
+          value: "my-rabbitmq.rabbitmq-ns.svc.cluster.local"
         - name: RMQ_PORT
           value: "5672"
         resources:
@@ -39,15 +39,3 @@ spec:
           requests:
             cpu: "50m"
             memory: "100Mi"
-        livenessProbe:
-          httpGet:
-            path: /v1/users/home
-            port: 3000
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /v1/users/home
-            port: 3000
-          initialDelaySeconds: 5
-          periodSeconds: 5
