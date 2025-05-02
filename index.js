@@ -36,7 +36,7 @@ app.post('/v1/users/register', async (req, res) => {
       });
     }
 
-    logger.info(`User with ID ${citizenId} is not registered. Proceeding with registration.`);
+    logger.info(`User with ID ${user.id} is not registered. Proceeding with registration.`);
     await rabbitMQProducer.sendToQueue('registration-queue', {
       documentType: user.documentType,
       id: user.documentNumber,
@@ -56,7 +56,7 @@ app.post('/v1/users/register', async (req, res) => {
     res.status(200).send('User registered and notification sent!')
   } catch (error) {
     // Handle errors from either the validation call or the RabbitMQ send
-    logger.error(`Error during registration process for ID ${citizenId}: ${error.message}`);
+    logger.error(`Error during registration process for ID ${user.id}: ${error.message}`);
 
     if (error.response) {
         // Error from the axios call to the validation endpoint
