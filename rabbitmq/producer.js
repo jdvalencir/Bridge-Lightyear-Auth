@@ -2,7 +2,7 @@
 import amqp from 'amqplib'
 import { getLogger } from '../logger/logger.js'
 
-if (process.env.NODE_ENV !== 'development') {
+if (process.env.NODE_ENV === 'development') {
   process.loadEnvFile()
 }
 
