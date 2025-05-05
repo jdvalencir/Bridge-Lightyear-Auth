@@ -10,11 +10,11 @@ const logger = getLogger()
 
 app.use(express.json()) 
 
-app.get('/v1/users/home', (req, res) => {
+app.get('/v1/events/users/home', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post('/v1/users/register', async (req, res) => {
+app.post('/v1/events/users/register', async (req, res) => {
   const user = req.body
   
   if (!user) {
